@@ -1,11 +1,11 @@
-export const dynamic = "force-dynamic";
-import { Suspense } from "react";
 import LoginForm from "./LoginForm";
 
-export default function Page() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <LoginForm />
-    </Suspense>
-  );
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { callbackUrl?: string };
+}) {
+  const callbackUrl = (await searchParams)?.callbackUrl || "/dashboard";
+
+  return <LoginForm callbackUrl={callbackUrl} />;
 }
